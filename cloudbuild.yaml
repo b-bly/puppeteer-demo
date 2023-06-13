@@ -1,0 +1,28 @@
+steps:
+- name: node
+  entrypoint: npm
+  args: ['ci']
+- name: node
+  entrypoint: npm
+  args: ['lint']
+- name: node
+  entrypoint: npm
+  args: ['run', 'build']  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/puppeteer-demo:$SHORT_SHA",
+        "-t",
+        "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/puppeteer-demo:latest",
+        "."
+      ]
+substitutions:
+  _REGISTRY_URL: "us-central1-docker.pkg.dev"
+  _REGISTRY: "node-kubernetes"
+options:
+  logging: CLOUD_LOGGING_ONLY
+images: [
+    "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/puppeteer-demo:$SHORT_SHA",
+    "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/puppeteer-demo:latest"
+  ]
