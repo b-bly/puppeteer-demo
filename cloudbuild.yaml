@@ -7,7 +7,8 @@ steps:
   args: ['lint']
 - name: node
   entrypoint: npm
-  args: ['run', 'build']  - name: "gcr.io/cloud-builders/docker"
+  args: ['run', 'build']  
+- name: "gcr.io/cloud-builders/docker"
     args:
       [
         "build",
