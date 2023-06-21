@@ -2,12 +2,6 @@ const { PubSub, message } = require('@google-cloud/pubsub');
 
 const pubSubClient = new PubSub();
 
-// interface message {
-//   id: number;
-//   data: string;
-//   attributes: string;
-// }
-
 export function listenForMessages(subscriptionNameOrId: string, timeout = 20) {
   // References an existing subscription
   const subscription = pubSubClient.subscription(subscriptionNameOrId);

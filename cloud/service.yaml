@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: puppeteer
+spec:
+  template:
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/node-kubernetes-349713/node-kubernetes/puppeteer-demo:latest
