@@ -5,6 +5,7 @@ functions.http('puppeteerController', (req, res) => {
   console.log(req.url) // /path
   if (/search-terms/.test(req.url)) {
     // upload search terms to pubsub
+    // req.body should be search terms separated by a ','
     const topicNameOrId = 'search-term';
     console.log(req.body)
     req.body.split(',').forEach((searchTerm) => {

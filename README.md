@@ -11,14 +11,17 @@ gcloud beta builds submit --region=us-central1 --project=<project-id> --config c
 
 ### Deploy 
 
-To app engine: https://cloud.google.com/run/docs/deploying#yaml
+Create controller and pub sub with
 
 ```
-gcloud app deploy --project $PROJECT_ID
+./ci/deploy.sh
 ```
 
-Deploy to cloud run 
+Publish messages with controller endpoint.  Get the url from the gcp console > cloud functions > puppeteer-controller .
 
-```
-gcloud run services replace cloud/service.yaml
-```
+POST 
+<controller-url>/search-term
+body = string of search terms separated by commas. Example: "foo,bar,"
+BEARER_TOKEN=$(gcloud auth print-identity-token)
+
+Create and execute a job with `/ci/job` scripts.
