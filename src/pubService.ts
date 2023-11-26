@@ -20,7 +20,7 @@ export function listenForMessages(subscriptionNameOrId: string, timeout = 20) {
 
   // Wait a while for the subscription to run. (Part of the sample only.)
   setTimeout(() => {
-    subscription.removeListener('message', messageHandler);
+    // subscription.removeListener('message', messageHandler);
     console.log(`${messageCount} message(s) received.`);
   }, timeout * 1000);
 }
