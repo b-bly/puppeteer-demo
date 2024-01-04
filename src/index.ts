@@ -1,5 +1,5 @@
 import express from 'express';
-import { listenForMessages } from './pubService';
+import { pullMessage } from './pubService';
 
 const app = express();
 // TODO: Set as env
@@ -13,4 +13,27 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-listenForMessages('puppeteer-sub')
+// async function retryPullMessage(projectId: string, subscription: string, i = 10) {
+//   try {
+//     const message = await pullMessage('node-kubernetes-349713', 'puppeteer-sub')
+//     if (message === null) {
+//       return retryPullMessage(projectId, subscription, --i);
+//     }
+//     return message
+//   } catch {
+//     return retryPullMessage(projectId, subscription, --i);
+//   }
+// }
+
+async function cycle() {
+  while(true) {
+    const message = await pullMessage('node-kubernetes-349713', 'puppeteer-sub')
+    if (message === null) {
+      return false
+    }
+    // start google search
+    console.log(message)
+  }
+}
+
+cycle();
