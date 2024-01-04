@@ -14,18 +14,27 @@ pubsub controller
     - for publishing messages
     - getting messages (in progress)
 
-### TODO 
+### TODO (Maybe)
 Replace pubsub with
 https://cloud.google.com/tasks/docs/add-task-queue
 
 
-
 ### Cloudbuild
 
-To build puppeteer-demo app from local
+To build puppeteer-demo app from local:
 
 ```
 gcloud beta builds submit --region=us-central1 --project=$PROJECT_ID --config cloudbuild.yaml
+```
+
+Builds and pushes image to artifact registry (old = container registry).
+
+### Create job(s)
+
+Run puppeteer-demo container instance(s).
+
+```
+bash ./ci/job/create.sh
 ```
 
 ### Deploy 
@@ -33,7 +42,7 @@ gcloud beta builds submit --region=us-central1 --project=$PROJECT_ID --config cl
 Create controller and pub sub with
 
 ```
-./ci/deploy.sh
+bash ./ci/deploy.sh
 ```
 
 Publish messages with controller endpoint.  Get the url from the gcp console > cloud functions > puppeteer-controller .
