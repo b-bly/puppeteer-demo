@@ -27,11 +27,13 @@ app.listen(port, () => {
 
 async function cycle() {
   while(true) {
+    // project, sub_id
     const message = await pullMessage('node-kubernetes-349713', 'puppeteer-sub')
     if (message === null) {
       return false
     }
     // start google search
+    console.log("Got message:")
     console.log(message)
   }
 }

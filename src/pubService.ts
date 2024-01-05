@@ -27,12 +27,15 @@ const pubSubClient = new PubSub();
 
 // pub sub examples https://www.npmjs.com/package/@google-cloud/pubsub
 // Modified from https://github.com/googleapis/nodejs-pubsub/blob/main/samples/synchronousPull.js
-const {v1} = require('@google-cloud/pubsub');
+const { v1 } = require('@google-cloud/pubsub');
 
 // Creates a client; cache this for further use.
 const subClient = new v1.SubscriberClient();
 
-export async function pullMessage(projectId = 'node-kubernetes-349713', subscriptionNameOrId: string) {
+export async function pullMessage(
+  projectId = 'node-kubernetes-349713',
+  subscriptionNameOrId: string
+) {
   // The low level API client requires a name only.
   const formattedSubscription =
     subscriptionNameOrId.indexOf('/') >= 0
@@ -48,17 +51,16 @@ export async function pullMessage(projectId = 'node-kubernetes-349713', subscrip
 
   // The subscriber pulls a specified number of messages.
   const [response] = await subClient.pull(request);
+  if (response.receivedMessages.length > 0) {
 
-  if (response.messages.length > 0) {
-    const ackIds = response.messages[0]
+    const ackIds = response.receivedMessages[0].ackId;
     const ackRequest = {
       subscription: formattedSubscription,
-      ackIds: ackIds,
-    }
+      ackIds: [ackIds],
+    };
     await subClient.acknowledge(ackRequest);
-    return response.receivedMessages[0]
+    return response.receivedMessages[0].message.data.toString();
   } else {
     return null;
   }
 }
-
