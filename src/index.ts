@@ -30,6 +30,7 @@ async function cycle() {
     // project, sub_id
     const message = await pullMessage('node-kubernetes-349713', 'puppeteer-sub')
     if (message === null) {
+      process.exit(0)
       return false
     }
     // start google search

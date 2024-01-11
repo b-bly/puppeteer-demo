@@ -9,10 +9,12 @@ module.exports = async function publishMessage(topicNameOrId, data) {
   try {
     const messageId = await pubSubClient
       .topic(topicNameOrId)
-      .publishMessage({data: dataBuffer});
+      .publishMessage({ data: dataBuffer });
     console.log(`Message ${messageId} published.`);
+    return messageId;
   } catch (error) {
     console.error(`Received error while publishing: ${error.message}`);
     process.exitCode = 1;
+    return error;
   }
-}
+};
